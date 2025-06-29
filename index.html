@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aswin R Kumar| Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+  <style>
+    :root {
+      --main-color: #4f8cff;
+      --bg-color: #f5f7fa;
+      --card-bg: #fff;
+      --text-color: #222;
+      --accent: #eaeaea;
+    }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--bg-color);
+      margin: 0;
+      color: var(--text-color);
+    }
+    header {
+      background: var(--main-color);
+      color: #fff;
+      padding: 1.5em 0;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 1.5em;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    nav a:hover {
+      color: #ffd166;
+    }
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 60vh;
+      background: linear-gradient(120deg, #4f8cff 0%, #7ed6df 100%);
+      color: #fff;
+      text-align: center;
+      animation: fadeIn 1.5s;
+    }
+    .hero h1 {
+      font-size: 2.8em;
+      margin-bottom: 0.2em;
+      letter-spacing: 2px;
+    }
+    .hero p {
+      font-size: 1.3em;
+      margin-bottom: 1.2em;
+    }
+    .hero .cta {
+      background: #fff;
+      color: var(--main-color);
+      border: none;
+      padding: 0.8em 2em;
+      font-size: 1em;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      transition: background 0.2s, color 0.2s;
+    }
+    .hero .cta:hover {
+      background: #ffd166;
+      color: #222;
+    }
+    section {
+      max-width: 900px;
+      margin: 2em auto;
+      padding: 0 1.5em;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 1em;
+      color: var(--main-color);
+    }
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5em;
+    }
+    .project-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      padding: 1.5em;
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 8px 24px rgba(79,140,255,0.12);
+    }
+    .project-card h3 {
+      margin-top: 0;
+    }
+    .project-card .tags {
+      margin: 0.5em 0;
+    }
+    .project-card .tag {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--main-color);
+      border-radius: 12px;
+      padding: 0.2em 0.8em;
+      font-size: 0.85em;
+      margin-right: 0.5em;
+    }
+    .about {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      padding: 2em 1.5em;
+      margin-bottom: 2em;
+    }
+    .social-icons {
+      text-align: center;
+      margin-top: 1em;
+    }
+    .social-icons a {
+      color: var(--main-color);
+      margin: 0 0.5em;
+      font-size: 1.5em;
+      transition: color 0.2s, transform 0.2s;
+    }
+    .social-icons a:hover {
+      color: #ffd166;
+      transform: translateY(-5px);
+    }
+    .contact-form {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      padding: 2em 1.5em;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .contact-form input, .contact-form textarea {
+      width: 100%;
+      padding: 0.7em;
+      margin-bottom: 1em;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1em;
+      resize: vertical;
+    }
+    .contact-form button {
+      background: var(--main-color);
+      color: #fff;
+      border: none;
+      padding: 0.8em 2em;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background 0.2s;
+    }
+    .contact-form button:hover {
+      background: #ffd166;
+      color: #222;
+    }
+    footer {
+      text-align: center;
+      padding: 1.5em 0;
+      background: var(--accent);
+      color: #777;
+      margin-top: 2em;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(40px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    @media (max-width: 700px) {
+      .hero h1 { font-size: 2em; }
+      .projects { grid-template-columns: 1fr; }
+      section { padding: 0 0.5em; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+  <section class="hero">
+    <h1>Hello, I'm <span style="color:#ffd166;">Aswin R Kumar</span></h1>
+    <p>Web Developer & Designer passionate about building interactive web experiences.</p>
+    <button class="cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});">Contact Me</button>
+  </section>
+  <section id="about" class="about">
+    <h2>About Me</h2>
+    <p>
+      I am a creative web developer with experience in building modern, responsive, and interactive websites. I love turning ideas into reality using code and design.
+    </p>
+  
+
+ <div class="social-icons">
+  <a href="https://github.com/aswinr1" target="_blank" rel="noopener noreferrer" title="GitHub">
+    <i class="fab fa-github"></i>
+  </a>
+  <a href="https://www.linkedin.com/in/aswin-r-kumar-078147314/" target="_blank" rel="noopener noreferrer" title="LinkedIn">
+    <i class="fab fa-linkedin"></i>
+  </a>
+</div>
+
+  </section>
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="projects">
+      <div class="project-card">
+        <h3>Html Portfolio</h3>
+        <div class="tags">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+        </div>
+        <p>A visually appealing and interactive personal portfolio website template.</p>
+      </div>
+      <div class="project-card">
+        <h3>Blog Platform</h3>
+        <div class="tags">
+          <span class="tag">JavaScript</span>
+          <span class="tag">API</span>
+        </div>
+        <p>A dynamic blog platform with live comments and user authentication.</p>
+      </div>
+      <div class="project-card">
+        <h3>Design System</h3>
+        <div class="tags">
+          <span class="tag">Figma</span>
+          <span class="tag">UI/UX</span>
+        </div>
+        <p>A reusable design system for fast prototyping and consistent user interfaces.</p>
+      </div>
+    </div>
+  </section>
+  <section id="contact">
+   <h2>Contact</h2>
+    <form class="contact-form" action="https://formspree.io/f/mwpbyegk" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
+      <button type="submit" >Send Message</button>
+    </form>
+
+   
+  </section>
+  <footer>
+    &copy; 2025 Aswin R Kumar. All rights reserved.
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
