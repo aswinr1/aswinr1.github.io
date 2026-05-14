@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aswin R Kumar| Portfolio</title>
+  <title>Aswin R Kumar | Portfolio</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
   <style>
     :root {
@@ -12,31 +12,130 @@
       --card-bg: #fff;
       --text-color: #222;
       --accent: #eaeaea;
+      --header-text: #fff;
+      --shadow: rgba(0, 0, 0, 0.08);
+    }
+    html {
+      scroll-behavior: smooth;
     }
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
       background: var(--bg-color);
       margin: 0;
       color: var(--text-color);
+      transition: background 0.25s, color 0.25s;
+    }
+    body.theme-dark {
+      --bg-color: #12151c;
+      --card-bg: #1a1f2a;
+      --text-color: #e8eaed;
+      --accent: #2a3142;
+      --shadow: rgba(0, 0, 0, 0.35);
+    }
+    body.theme-dark header {
+      background: #1e3a6f;
+    }
+    body.theme-dark .hero {
+      background: linear-gradient(120deg, #1e3a6f 0%, #2d6a6f 100%);
+    }
+    body.theme-dark .contact-form input,
+    body.theme-dark .contact-form textarea {
+      background: #12151c;
+      border-color: #3d4555;
+      color: var(--text-color);
+    }
+    body.theme-dark footer {
+      background: var(--accent);
+      color: #9aa0a6;
     }
     header {
       background: var(--main-color);
-      color: #fff;
-      padding: 1.5em 0;
-      text-align: center;
+      color: var(--header-text);
+      padding: 0.75em 1.25em;
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 100;
+      box-shadow: 0 2px 12px var(--shadow);
     }
-    nav a {
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.25rem 1.25rem;
+    }
+    .nav-links a {
       color: #fff;
       text-decoration: none;
-      margin: 0 1.5em;
       font-weight: 500;
-      transition: color 0.2s;
+      transition: color 0.2s, opacity 0.2s;
+      padding: 0.35em 0;
     }
-    nav a:hover {
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
       color: #ffd166;
+    }
+    .nav-links a.active {
+      color: #ffd166;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .icon-btn {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      color: #fff;
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .icon-btn:hover {
+      background: rgba(255, 255, 255, 0.28);
+    }
+    .icon-btn:active {
+      transform: scale(0.96);
+    }
+    .menu-toggle {
+      display: none;
+    }
+    @media (max-width: 640px) {
+      .menu-toggle {
+        display: inline-flex;
+      }
+      .nav-links {
+        display: none;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 100%;
+        background: #3d6fd9;
+        flex-direction: column;
+        padding: 1rem 1.25rem 1.25rem;
+        box-shadow: 0 12px 24px var(--shadow);
+      }
+      body.theme-dark .nav-links {
+        background: #152a52;
+      }
+      .nav-links.is-open {
+        display: flex;
+      }
     }
     .hero {
       display: flex;
@@ -47,16 +146,17 @@
       background: linear-gradient(120deg, #4f8cff 0%, #7ed6df 100%);
       color: #fff;
       text-align: center;
-      animation: fadeIn 1.5s;
+      animation: fadeIn 1.2s ease-out;
     }
     .hero h1 {
-      font-size: 2.8em;
+      font-size: clamp(1.75rem, 5vw, 2.8em);
       margin-bottom: 0.2em;
       letter-spacing: 2px;
     }
     .hero p {
-      font-size: 1.3em;
+      font-size: clamp(1rem, 2.5vw, 1.3em);
       margin-bottom: 1.2em;
+      max-width: 36ch;
     }
     .hero .cta {
       background: #fff;
@@ -66,17 +166,29 @@
       font-size: 1em;
       border-radius: 25px;
       cursor: pointer;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      transition: background 0.2s, color 0.2s;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      transition: background 0.2s, color 0.2s, transform 0.15s;
     }
     .hero .cta:hover {
       background: #ffd166;
       color: #222;
     }
-    section {
+    .hero .cta:active {
+      transform: scale(0.98);
+    }
+    section:not(.hero) {
       max-width: 900px;
       margin: 2em auto;
       padding: 0 1.5em;
+    }
+    section.reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    section.reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     h2 {
       text-align: center;
@@ -91,19 +203,60 @@
     .project-card {
       background: var(--card-bg);
       border-radius: 16px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      box-shadow: 0 2px 12px var(--shadow);
       padding: 1.5em;
       transition: transform 0.2s, box-shadow 0.2s;
       cursor: pointer;
       position: relative;
       overflow: hidden;
+      border: 2px solid transparent;
+      text-align: left;
     }
-    .project-card:hover {
-      transform: translateY(-8px) scale(1.03);
-      box-shadow: 0 8px 24px rgba(79,140,255,0.12);
+    .project-card:hover,
+    .project-card:focus-visible {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 24px rgba(79, 140, 255, 0.15);
+    }
+    .project-card:focus-visible {
+      outline: none;
+      border-color: var(--main-color);
+    }
+    .project-card.expanded {
+      transform: none;
+      border-color: rgba(79, 140, 255, 0.45);
     }
     .project-card h3 {
       margin-top: 0;
+      padding-right: 2rem;
+    }
+    .project-card .chevron {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      color: var(--main-color);
+      transition: transform 0.25s;
+    }
+    .project-card.expanded .chevron {
+      transform: rotate(180deg);
+    }
+    .project-card .summary {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin: 0;
+    }
+    .project-card.expanded .summary {
+      -webkit-line-clamp: unset;
+      display: block;
+    }
+    .project-card .hint {
+      font-size: 0.8rem;
+      color: #888;
+      margin-top: 0.75rem;
+    }
+    body.theme-dark .project-card .hint {
+      color: #9aa0a6;
     }
     .project-card .tags {
       margin: 0.5em 0;
@@ -115,12 +268,12 @@
       border-radius: 12px;
       padding: 0.2em 0.8em;
       font-size: 0.85em;
-      margin-right: 0.5em;
+      margin: 0 0.5em 0.35em 0;
     }
     .about {
-      background: #fff;
+      background: var(--card-bg);
       border-radius: 16px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      box-shadow: 0 2px 12px var(--shadow);
       padding: 2em 1.5em;
       margin-bottom: 2em;
     }
@@ -133,29 +286,33 @@
       margin: 0 0.5em;
       font-size: 1.5em;
       transition: color 0.2s, transform 0.2s;
+      display: inline-block;
     }
     .social-icons a:hover {
       color: #ffd166;
       transform: translateY(-5px);
     }
     .contact-form {
-      background: #fff;
+      background: var(--card-bg);
       border-radius: 16px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      box-shadow: 0 2px 12px var(--shadow);
       padding: 2em 1.5em;
       max-width: 500px;
       margin: 0 auto;
     }
-    .contact-form input, .contact-form textarea {
+    .contact-form input,
+    .contact-form textarea {
       width: 100%;
+      box-sizing: border-box;
       padding: 0.7em;
       margin-bottom: 1em;
       border: 1px solid #ccc;
       border-radius: 8px;
       font-size: 1em;
+      font-family: inherit;
       resize: vertical;
     }
-    .contact-form button {
+    .contact-form button[type="submit"] {
       background: var(--main-color);
       color: #fff;
       border: none;
@@ -163,11 +320,77 @@
       border-radius: 25px;
       cursor: pointer;
       font-size: 1em;
-      transition: background 0.2s;
+      transition: background 0.2s, opacity 0.2s;
     }
-    .contact-form button:hover {
-      background: #ffd166;
-      color: #222;
+    .contact-form button[type="submit"]:hover:not(:disabled) {
+      background: #3d78e6;
+    }
+    .contact-form button[type="submit"]:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+    .form-status {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      display: none;
+    }
+    .form-status.success {
+      display: block;
+      background: #d4edda;
+      color: #155724;
+    }
+    .form-status.error {
+      display: block;
+      background: #f8d7da;
+      color: #721c24;
+    }
+    body.theme-dark .form-status.success {
+      background: #1e3d2a;
+      color: #a3e4b0;
+    }
+    body.theme-dark .form-status.error {
+      background: #3d1e24;
+      color: #f5a5ad;
+    }
+    .back-top {
+      position: fixed;
+      bottom: 1.25rem;
+      right: 1.25rem;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: none;
+      background: var(--main-color);
+      color: #fff;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 16px var(--shadow);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(12px);
+      transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
+      z-index: 90;
+    }
+    .back-top.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    .back-top:hover {
+      background: #3d78e6;
+    }
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
     footer {
       text-align: center;
@@ -177,95 +400,138 @@
       margin-top: 2em;
     }
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(40px);}
-      to { opacity: 1; transform: translateY(0);}
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
-    @media (max-width: 700px) {
-      .hero h1 { font-size: 2em; }
-      .projects { grid-template-columns: 1fr; }
-      section { padding: 0 0.5em; }
+    @media (min-width: 641px) {
+      .nav-links {
+        flex: 1;
+        justify-content: center;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      section.reveal {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+      .hero {
+        animation: none;
+      }
     }
   </style>
 </head>
 <body>
   <header>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
-    </nav>
+    <div class="header-inner">
+      <button type="button" class="icon-btn menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
+        <i class="fas fa-bars" aria-hidden="true"></i>
+      </button>
+      <nav class="nav-links" id="navLinks" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <button type="button" class="icon-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle dark mode">
+          <i class="fas fa-moon" id="themeIcon" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
   </header>
-  <section class="hero">
-    <h1>Hello, I'm <span style="color:#ffd166;">Aswin R Kumar</span></h1>
-    <p>Software Developer  passionate about building interactive web experiences.</p>
-    <button class="cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});">Contact Me</button>
+
+  <section class="hero" aria-labelledby="hero-heading">
+    <h1 id="hero-heading">Hello, I'm <span style="color:#ffd166;">Aswin R Kumar</span></h1>
+    <p>Software developer passionate about building interactive web experiences.</p>
+    <button type="button" class="cta" id="heroContact">Contact Me</button>
   </section>
-  <section id="about" class="about">
+
+  <section id="about" class="about reveal">
     <h2>About Me</h2>
     <p>
-      I am a creative software developer with experience in building modern, responsive, and interactive websites with AI framework. I love turning ideas into reality using code and design.
+      I am a creative software developer with experience in building modern, responsive, and interactive websites with AI frameworks. I love turning ideas into reality using code and design.
     </p>
-  
-
- <div class="social-icons">
-  <a href="https://github.com/aswinr1" target="_blank" rel="noopener noreferrer" title="GitHub">
-    <i class="fab fa-github"></i>
-  </a>
-  <a href="https://www.linkedin.com/in/aswin-r-kumar-078147314/" target="_blank" rel="noopener noreferrer" title="LinkedIn">
-    <i class="fab fa-linkedin"></i>
-  </a>
-</div>
-
+    <div class="social-icons">
+      <a href="https://github.com/aswinr1" target="_blank" rel="noopener noreferrer" title="GitHub">
+        <i class="fab fa-github" aria-hidden="true"></i><span class="visually-hidden">GitHub</span>
+      </a>
+      <a href="https://www.linkedin.com/in/aswin-r-kumar-078147314/" target="_blank" rel="noopener noreferrer" title="LinkedIn">
+        <i class="fab fa-linkedin" aria-hidden="true"></i><span class="visually-hidden">LinkedIn</span>
+      </a>
+    </div>
   </section>
-  <section id="projects">
+
+  <section id="projects" class="reveal">
     <h2>Projects</h2>
     <div class="projects">
-      <div class="project-card">
-        <h3>Html Portfolio</h3>
+      <article class="project-card" tabindex="0" data-project="portfolio">
+        <i class="fas fa-chevron-down chevron" aria-hidden="true"></i>
+        <h3>HTML Portfolio</h3>
         <div class="tags">
           <span class="tag">HTML</span>
           <span class="tag">CSS</span>
         </div>
-        <p>A visually appealing and interactive personal portfolio website template.</p>
-      </div>  
-        <div class="project-card">
+        <p class="summary">A visually appealing and interactive personal portfolio website template with responsive layout and accessible navigation.</p>
+        <p class="hint">Click or press Enter to expand</p>
+      </article>
+
+      <article class="project-card" tabindex="0" data-project="bmd">
+        <i class="fas fa-chevron-down chevron" aria-hidden="true"></i>
         <h3>Bone Mineral Density (BMD) Fracture Risk Predictor</h3>
         <div class="tags">
-            <span class="tag">TensorFlow</span>
-            <span class="tag">Scikit-Learn</span>
-            <span class="tag">Gradio</span>
-            <span class="tag">Multimodal DL</span>
-            <span class="tag">Python</span>
+          <span class="tag">TensorFlow</span>
+          <span class="tag">Scikit-Learn</span>
+          <span class="tag">Gradio</span>
+          <span class="tag">Multimodal DL</span>
+          <span class="tag">Python</span>
         </div>
-         <p>A multimodal machine learning and deep learning framework that analyzes clinical patient data alongside medical imaging to assess bone density degradation and predict fracture risks using fused architecture models.</p>
+        <p class="summary">A multimodal machine learning and deep learning framework that analyzes clinical patient data alongside medical imaging to assess bone density degradation and predict fracture risks using fused architecture models.</p>
+        <p class="hint">Click or press Enter to expand</p>
+      </article>
+
+      <article class="project-card" tabindex="0" data-project="music">
+        <i class="fas fa-chevron-down chevron" aria-hidden="true"></i>
+        <h3>LangChain Music Finder</h3>
+        <div class="tags">
+          <span class="tag">LangChain</span>
+          <span class="tag">Gemini</span>
+          <span class="tag">Streamlit</span>
+          <span class="tag">Python</span>
         </div>
-           <div class="project-card">
-            <h3>LangChain Music Finder</h3>
-            <div class="tags">
-                <span class="tag">LangChain</span>
-                <span class="tag">Gemini-3-flash-preview</span>
-                <span class="tag">Streamlit</span>
-                <span class="tag">Python</span>
-            </div>
-        </div>
-               <p>A multi-modal AI application that processes voice, singing, and image inputs in multiple Indian languages for real-time music discovery and actor debut analysis.</p>
-              </div>
+        <p class="summary">A multimodal AI application that processes voice, singing, and image inputs in multiple Indian languages for real-time music discovery and actor debut analysis.</p>
+        <p class="hint">Click or press Enter to expand</p>
+      </article>
     </div>
   </section>
-  <section id="contact">
-   <h2>Contact</h2>
-    <form class="contact-form" action="https://formspree.io/f/mwpbyegk" method="POST">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" required>
-      <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
-      <button type="submit" >Send Message</button>
-    </form>
 
-   
+  <section id="contact" class="reveal">
+    <h2>Contact</h2>
+    <form class="contact-form" id="contactForm" action="https://formspree.io/f/mwpbyegk" method="POST">
+      <input type="text" name="name" id="field-name" placeholder="Your Name" required autocomplete="name">
+      <input type="email" name="email" id="field-email" placeholder="Your Email" required autocomplete="email">
+      <textarea name="message" id="field-message" rows="4" placeholder="Your Message" required></textarea>
+      <button type="submit" id="submitBtn">Send Message</button>
+      <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
+    </form>
   </section>
+
   <footer>
     &copy; 2026 Aswin R Kumar. All rights reserved.
   </footer>
+
+  <button type="button" class="back-top" id="backTop" aria-label="Back to top">
+    <i class="fas fa-arrow-up" aria-hidden="true"></i>
+  </button>
+
   <script src="script.js"></script>
 </body>
 </html>
